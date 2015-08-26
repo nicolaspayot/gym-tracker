@@ -1,0 +1,11 @@
+{
+  "name": "gym-tracker-api",
+  "version": "1.0.0",
+  "description": "Simple CRUD API to handle gym workout routines",
+  "main": "workout.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Nicolas Payot",
+  "license": "MIT"
+}
