@@ -1,3 +1,9 @@
+var connect = require('connect');
+
+var logger = require('./logger');
 var workout = require('./workout');
-var server = workout();
-server.listen(3000);
+
+connect()
+  .use(logger)
+  .use(workout)
+  .listen(3000);

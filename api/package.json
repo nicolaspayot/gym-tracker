@@ -9,6 +9,7 @@
   "author": "Nicolas Payot",
   "license": "MIT",
   "devDependencies": {
+    "connect": "^3.4.0",
     "webpack": "^1.12.1"
   }
 }
