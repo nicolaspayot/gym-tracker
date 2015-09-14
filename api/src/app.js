@@ -1,7 +1,7 @@
-var connect = require('connect');
+const connect = require('connect');
 
-var logger = require('./logger');
-var workout = require('./workout');
+import { logger } from './logger';
+import { workout } from './workout';
 
 connect()
   .use(logger)

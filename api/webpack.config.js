@@ -15,5 +15,10 @@ module.exports = {
     filename: 'backend.js',
     libraryTarget: 'commonjs2'
   },
+  module: {
+    loaders: [
+      { test: /\.js$/, loader: 'babel', exclude: /node_modules/ }
+    ]
+  },
   externals: nodeModules
 }
