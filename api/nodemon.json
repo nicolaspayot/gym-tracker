@@ -1,4 +1,9 @@
 {
   "verbose": true,
-  "ignore": ["node_modules/"]
+  "watch": [ "src/*.js" ],
+  "ignore": [
+    ".git",
+    "node_modules/",
+    "test/"
+  ]
 }
