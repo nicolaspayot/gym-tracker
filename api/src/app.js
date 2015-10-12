@@ -1,9 +1,9 @@
 import connect from 'connect';
 
 import logger from './logger';
-import workout from './workout';
+import server from './server';
 
 connect()
   .use(logger)
-  .use(workout)
+  .use(server)
   .listen(3000);

@@ -21,9 +21,9 @@
     "eslint": "^1.5.1",
     "eslint-watch": "^2.1.1",
     "faucet": "0.0.1",
+    "lodash": "^3.10.1",
     "nodemon": "^1.7.0",
     "parallelshell": "^2.0.0",
-    "supertest": "^1.1.0",
     "tape": "^4.2.1"
   }
 }
