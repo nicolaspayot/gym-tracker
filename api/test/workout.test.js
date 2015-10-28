@@ -55,7 +55,9 @@ test('Workout delete method with id param', function(t) {
     { id: 2, name: 'workout session 2'}
   ];
   workout._sessions = sessions;
+  /* eslint-disable dot-notation */
   workout.delete(2);
+  /* eslint-enable dot-notation */
   t.deepEqual(workout._sessions, [sessions[0]], 'should remove the specified workout session');
   t.end();
 });
