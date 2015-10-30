@@ -1,6 +1,6 @@
 import _ from 'lodash';
 
-export default class Workout {
+class Workout {
   constructor() {
     this._sessions = [];
   }
@@ -30,3 +30,5 @@ export default class Workout {
     this._sessions = _.without(this._sessions, session);
   }
 }
+
+export default new Workout();

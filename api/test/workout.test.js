@@ -1,8 +1,13 @@
 import test from 'tape';
-import Workout from '../src/workout';
+import workout from '../src/workout';
+
+function setup() {
+  workout._sessions = [];
+}
 
 test('Workout get method with no param', function(t) {
-  const workout = new Workout();
+  setup();
+
   const expected = [
     { id: 1, name: 'workout session 1'},
     { id: 2, name: 'workout session 2'}
@@ -14,7 +19,8 @@ test('Workout get method with no param', function(t) {
 });
 
 test('Workout get method with id param', function(t) {
-  const workout = new Workout();
+  setup();
+
   const sessions = [
     { id: 1, name: 'workout session 1'},
     { id: 2, name: 'workout session 2'}
@@ -26,7 +32,8 @@ test('Workout get method with id param', function(t) {
 });
 
 test('Workout save method with new workout session', function(t) {
-  const workout = new Workout();
+  setup();
+
   const expected = { id: 1, name: 'workout session 1' };
   const newItem = workout.save({ name: 'workout session 1' });
   t.deepEqual(workout._sessions[0], expected, 'should add a workout session');
@@ -35,7 +42,8 @@ test('Workout save method with new workout session', function(t) {
 });
 
 test('Workout save method with existing workout session', function(t) {
-  const workout = new Workout();
+  setup();
+
   const sessions = [
     { id: 1, name: 'workout session 1'},
     { id: 2, name: 'workout session 2'}
@@ -49,7 +57,8 @@ test('Workout save method with existing workout session', function(t) {
 });
 
 test('Workout delete method with id param', function(t) {
-  const workout = new Workout();
+  setup();
+
   const sessions = [
     { id: 1, name: 'workout session 1'},
     { id: 2, name: 'workout session 2'}
