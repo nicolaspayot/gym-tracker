@@ -1,4 +1,13 @@
+import url from 'url';
 import workout from './workout';
+
+const urlRegex = /^\/workouts\/(\d+)/;
+
+function buildJsonResponse(res, body) {
+  res.setHeader('Content-Type', 'application/json');
+  res.setHeader('Content-Length', Buffer.byteLength(body));
+  res.end(body);
+}
 
 export default function server(req, res) {
 
@@ -12,11 +21,13 @@ export default function server(req, res) {
 
   if (req.method === 'GET') {
     if (req.url === '/workouts') {
-      const sessions = workout.get();
-      const body = JSON.stringify(sessions);
-      res.setHeader('Content-Type', 'application/json');
-      res.setHeader('Content-Length', Buffer.byteLength(body));
-      res.end(body);
+      const body = JSON.stringify(workout.get());
+      buildJsonResponse(res, body);
+      return;
+    } else if (req.url.match(urlRegex)) {
+      const sessionId = Number(urlRegex.exec(req.url)[1]);
+      const body = JSON.stringify(workout.get(sessionId));
+      buildJsonResponse(res, body);
       return;
     }
   }
