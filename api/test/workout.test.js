@@ -1,4 +1,5 @@
 import test from 'tape';
+import _ from 'lodash';
 import workout from '../src/workout';
 
 function setup() {
@@ -14,7 +15,7 @@ test('Workout get method with no param', function(t) {
   ];
   workout._sessions = expected;
   const sessions = workout.get();
-  t.deepEqual(sessions, expected, 'should get the list of workout sessions');
+  t.deepEqual(sessions, expected, 'should return the list of workout sessions');
   t.end();
 });
 
@@ -27,7 +28,20 @@ test('Workout get method with id param', function(t) {
   ];
   workout._sessions = sessions;
   const session = workout.get(1);
-  t.deepEqual(session, sessions[0], 'should get the specified workout session');
+  t.deepEqual(session, sessions[0], 'should return the specified workout session');
+  t.end();
+});
+
+test('Workout get method with unknown id param', function(t) {
+  setup();
+
+  const sessions = [
+    { id: 1, name: 'workout session 1'},
+    { id: 2, name: 'workout session 2'}
+  ];
+  workout._sessions = sessions;
+  const session = workout.get(3);
+  t.ok(_.isObject(session) && _.isEmpty(session), 'should return an empty object');
   t.end();
 });
 
