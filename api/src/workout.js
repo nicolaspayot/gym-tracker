@@ -9,7 +9,7 @@ class Workout {
     if (_.isUndefined(id)) {
       return this._sessions;
     } else {
-      return _.find(this._sessions, { id }) || {};
+      return _.find(this._sessions, { id });
     }
   }
 

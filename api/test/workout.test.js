@@ -41,7 +41,7 @@ test('Workout get method with unknown id param', function(t) {
   ];
   workout._sessions = sessions;
   const session = workout.get(3);
-  t.ok(_.isObject(session) && _.isEmpty(session), 'should return an empty object');
+  t.ok(_.isUndefined(session), 'should return undefined');
   t.end();
 });
 
