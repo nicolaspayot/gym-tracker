@@ -11,6 +11,14 @@ function buildJsonResponse(res, data) {
   res.end(body);
 }
 
+function handleError404(res) {
+  res.statusCode = 404;
+  const errorMsg = '404 Not Found';
+  res.setHeader('Content-Type', 'text/plain');
+  res.setHeader('Content-Length', Buffer.byteLength(errorMsg));
+  res.end(errorMsg);
+}
+
 export default function server(req, res) {
 
   // short-circuit annoying favicon requests (https://gist.github.com/kentbrew/763822)
@@ -38,9 +46,5 @@ export default function server(req, res) {
     }
   }
 
-  res.statusCode = 404;
-  const errorMsg = '404 Not Found';
-  res.setHeader('Content-Type', 'text/plain');
-  res.setHeader('Content-Length', Buffer.byteLength(errorMsg));
-  res.end(errorMsg);
+  handleError404(res);
 }
