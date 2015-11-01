@@ -24,11 +24,14 @@ export default function server(req, res) {
       const body = JSON.stringify(workout.get());
       buildJsonResponse(res, body);
       return;
-    } else if (req.url.match(urlRegex)) {
-      const sessionId = Number(urlRegex.exec(req.url)[1]);
-      const body = JSON.stringify(workout.get(sessionId));
-      buildJsonResponse(res, body);
-      return;
+    } else {
+      const match = req.url.match(urlRegex);
+      if (match) {
+        const sessionId = Number(match[1]);
+        const body = JSON.stringify(workout.get(sessionId));
+        buildJsonResponse(res, body);
+        return;
+      }
     }
   }
 
