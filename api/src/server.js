@@ -23,7 +23,6 @@ export default function server(req, res) {
 
   // short-circuit annoying favicon requests (https://gist.github.com/kentbrew/763822)
   if (req.url === '/favicon.ico') {
-    res.statusCode = 200;
     res.setHeader('Content-Type', 'image/x-icon');
     res.end();
     return;
