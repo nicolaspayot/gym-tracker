@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import url from 'url';
 import workout from './workout';
 
@@ -28,9 +29,12 @@ export default function server(req, res) {
       const match = req.url.match(urlRegex);
       if (match) {
         const sessionId = Number(match[1]);
-        const body = JSON.stringify(workout.get(sessionId));
-        buildJsonResponse(res, body);
-        return;
+        const session = workout.get(sessionId);
+        if (_.isObject(session)) {
+          const body = JSON.stringify(workout.get(sessionId));
+          buildJsonResponse(res, body);
+          return;
+        }
       }
     }
   }
