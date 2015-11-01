@@ -4,7 +4,8 @@ import workout from './workout';
 
 const urlRegex = /^\/workouts\/(\d+)/;
 
-function buildJsonResponse(res, body) {
+function buildJsonResponse(res, data) {
+  const body = JSON.stringify(data);
   res.setHeader('Content-Type', 'application/json');
   res.setHeader('Content-Length', Buffer.byteLength(body));
   res.end(body);
@@ -22,8 +23,7 @@ export default function server(req, res) {
 
   if (req.method === 'GET') {
     if (req.url === '/workouts') {
-      const body = JSON.stringify(workout.get());
-      buildJsonResponse(res, body);
+      buildJsonResponse(res, workout.get());
       return;
     } else {
       const match = req.url.match(urlRegex);
@@ -31,8 +31,7 @@ export default function server(req, res) {
         const sessionId = Number(match[1]);
         const session = workout.get(sessionId);
         if (_.isObject(session)) {
-          const body = JSON.stringify(workout.get(sessionId));
-          buildJsonResponse(res, body);
+          buildJsonResponse(res, workout.get(sessionId));
           return;
         }
       }
