@@ -7,79 +7,57 @@ function setup() {
   workout._sessions = [];
 }
 
-test('server request with unknown route', function(t) {
-  const req = httpMocks.createRequest({
-    method: 'GET',
-    url: '/unknown'
-  });
+function mockGETRequest(url) {
+  const req = httpMocks.createRequest({ method: 'GET', url });
   const res = httpMocks.createResponse();
   server(req, res);
 
-  const statusCode = res._getStatusCode();
-  const body = res._getData();
+  return {
+    statusCode: res._getStatusCode(),
+    data: res._getData()
+  };
+}
+
+test('server request with unknown route', function(t) {
+  const { statusCode, data } = mockGETRequest('/unknown');
   t.equal(statusCode, 404, 'should return status code 404');
-  t.equal(body, '404 Not Found', 'should return error 404 message');
+  t.equal(data, '404 Not Found', 'should return error 404 message');
   t.end();
 });
 
 test('server workouts GET request with no param', function(t) {
   setup();
-
   workout._sessions = [
     { id: 1, name: 'workout session 1'},
     { id: 2, name: 'workout session 2'}
   ];
 
-  const req = httpMocks.createRequest({
-    method: 'GET',
-    url: '/workouts'
-  });
-  const res = httpMocks.createResponse();
-  server(req, res);
-
-  const body = res._getData();
-  t.deepEqual(JSON.parse(body), workout._sessions, 'should return workout sessions list');
+  const { data } = mockGETRequest('/workouts');
+  t.deepEqual(JSON.parse(data), workout._sessions, 'should return workout sessions list');
   t.end();
 });
 
 test('server workouts GET request with id param', function(t) {
   setup();
-
   workout._sessions = [
     { id: 1, name: 'workout session 1'},
     { id: 2, name: 'workout session 2'}
   ];
 
-  const req = httpMocks.createRequest({
-    method: 'GET',
-    url: '/workouts/1'
-  });
-  const res = httpMocks.createResponse();
-  server(req, res);
-
-  const body = res._getData();
-  t.deepEqual(JSON.parse(body), workout._sessions[0], 'should return the specified workout session');
+  const { data } = mockGETRequest('/workouts/1');
+  t.deepEqual(JSON.parse(data), workout._sessions[0], 'should return the specified workout session');
   t.end();
 });
 
 test('server workouts GET request with unknown id param', function(t) {
   setup();
-
   workout._sessions = [
     { id: 1, name: 'workout session 1'},
     { id: 2, name: 'workout session 2'}
   ];
 
-  const req = httpMocks.createRequest({
-    method: 'GET',
-    url: '/workouts/3'
-  });
-  const res = httpMocks.createResponse();
-  server(req, res);
-
-  const statusCode = res._getStatusCode();
-  const body = res._getData();
+  const { statusCode, data } = mockGETRequest('/workouts/3');
   t.equal(statusCode, 404, 'should return status code 404');
-  t.equal(body, '404 Not Found', 'should return error 404 message');
+  t.equal(data, '404 Not Found', 'should return error 404 message');
   t.end();
 });
