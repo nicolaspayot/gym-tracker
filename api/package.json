@@ -9,6 +9,7 @@
     "serve": "nodemon babel src/app.js",
     "start": "parallelshell 'npm run serve' 'npm run eslint:watch'",
     "test": "babel-tape-runner test/*.test.js | faucet",
+    "test:watch": "watch 'npm test' src/ test/",
     "pretest": "npm run eslint"
   },
   "author": "Nicolas Payot",
@@ -25,6 +26,7 @@
     "node-mocks-http": "^1.5.0",
     "nodemon": "^1.8.0",
     "parallelshell": "^2.0.0",
-    "tape": "^4.2.2"
+    "tape": "^4.2.2",
+    "watch": "^0.16.0"
   }
 }
