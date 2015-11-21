@@ -11,15 +11,7 @@ function buildJsonResponse(res, data) {
   res.end(body);
 }
 
-function handleError404(res) {
-  res.statusCode = 404;
-  const errorMsg = '404 Not Found';
-  res.setHeader('Content-Type', 'text/plain');
-  res.setHeader('Content-Length', Buffer.byteLength(errorMsg));
-  res.end(errorMsg);
-}
-
-export default function server(req, res) {
+export default function server(req, res, next) {
 
   // short-circuit annoying favicon requests (https://gist.github.com/kentbrew/763822)
   if (req.url === '/favicon.ico') {
@@ -45,5 +37,6 @@ export default function server(req, res) {
     }
   }
 
-  handleError404(res);
+  res.statusCode = 404;
+  next('Not Found');
 }

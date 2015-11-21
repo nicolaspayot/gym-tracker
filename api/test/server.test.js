@@ -10,7 +10,8 @@ function setup() {
 function mockGETRequest(url) {
   const req = httpMocks.createRequest({ method: 'GET', url });
   const res = httpMocks.createResponse();
-  server(req, res);
+  const next = function() {};
+  server(req, res, next);
 
   return {
     statusCode: res._getStatusCode(),
@@ -21,7 +22,6 @@ function mockGETRequest(url) {
 test('server request with unknown route', function(t) {
   const { statusCode, data } = mockGETRequest('/unknown');
   t.equal(statusCode, 404, 'should return status code 404');
-  t.equal(data, '404 Not Found', 'should return error 404 message');
   t.end();
 });
 
@@ -58,6 +58,5 @@ test('server workouts GET request with unknown id param', function(t) {
 
   const { statusCode, data } = mockGETRequest('/workouts/3');
   t.equal(statusCode, 404, 'should return status code 404');
-  t.equal(data, '404 Not Found', 'should return error 404 message');
   t.end();
 });
