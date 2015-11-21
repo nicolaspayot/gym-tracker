@@ -13,13 +13,6 @@ function buildJsonResponse(res, data) {
 
 export default function server(req, res, next) {
 
-  // short-circuit annoying favicon requests (https://gist.github.com/kentbrew/763822)
-  if (req.url === '/favicon.ico') {
-    res.setHeader('Content-Type', 'image/x-icon');
-    res.end();
-    return;
-  }
-
   if (req.method === 'GET') {
     if (req.url === '/workouts') {
       buildJsonResponse(res, workout.get());
